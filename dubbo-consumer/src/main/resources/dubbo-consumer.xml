@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--消费方的应用名字-->
+    <dubbo:application name="consumer" />
+    <!--注册中心地址-->
+    <dubbo:registry address="zookeeper://xxx.xxx.xx.xxx:2181"/>
+    <!--声明dubbo协议跟端口-->
+    <!--生成远程服务代理，可以和本地有一样使用bean-->a
+    <bean id="notify" class="com.yang.test.notify.notiryImpl" />
+
+    <dubbo:reference id="testService" interface="com.yang.test.api.TestService" mock="return null"  cluster="failover" cache="lru" />
+
+</beans>

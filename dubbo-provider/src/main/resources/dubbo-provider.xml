@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--提供者应用名字-->
+    <dubbo:application name="provider"/>
+    <!-- 注册中心的ip地址 -->
+    <!--<dubbo:registry id= "shanghairegistry" address="zookeeper://127.0.0.1:2181"/>-->
+    <!--<dubbo:registry id= "beijingregistry" address="zookeeper://127.0.0.1:2182"/>-->
+    <!--<dubbo:service interface="com.yang.test.api.TestService" ref="testServcie" registry="shanghairegistry,beijingregistry"/>-->
+    <!--<dubbo:registry address="zookeeper://127.0.0.1:2181" group="shanghai"/>-->
+    <!--<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" group="beijing"/>-->
+
+    <dubbo:registry address="zookeeper://xxx.xxx.xx.xx:2181"/>
+    <!--声明dubbo协议跟端口-->
+    <dubbo:protocol id="A" name="dubbo" port="20880" />
+    <dubbo:protocol id="B" name="rmi" port="1099" />
+    <!--声明需要暴露的接口-->
+    <dubbo:service interface="com.yang.test.api.TestService" ref="testServcie">
+        <dubbo:method name="sayHello" loadbalance="roundrobin"/>
+    </dubbo:service>
+
+    <!--和本地bean一样实现服务-->
+    <bean id="testServcie" class="com.yang.test.service.impl.TestServiceImpl"/>
+</beans>
